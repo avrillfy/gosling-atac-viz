@@ -18,7 +18,7 @@ const goslingSpec = (mark, layout, binSize) => {
           {
             id: 'atac-peak-track',
             data: {
-              url: 'https://raw.githubusercontent.com/avrillfy/gosling-atac-viz/refs/heads/main/ACC_peakCalls.csv',
+              url: 'https://raw.githubusercontent.com/avrillfy/gosling-atac-viz/refs/heads/main/public/data/ACC_peakCalls.csv',
               type: 'csv',
               delimiter: ',',
               chromosomeField: 'seqnames',

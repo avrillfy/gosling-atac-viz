@@ -1,35 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import * as React from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
+import WidgetEncoding from './components/WidgetEncoding';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+// The full list of examples
+const examples = {
+	'Widget (Encoding)': <WidgetEncoding/>
 }
 
-export default App
+function App() {
+	return (
+		<div className='flex flex-row h-full w-full'>
+			<div className='flex-none border-r-[1px]'>
+				<div className='font-bold font-lg m-3'>Examples</div>
+				<ol className='list-decimal list-inside divide-y divide-solid'>
+					{Object.entries(examples).map(entry => <li className='p-3' key={entry[0]}><Link className='hover:underline' to={`/${entry[0].replace(' ', '_')}`}>{entry[0]}</Link></li>)}
+				</ol>
+			</div>
+			<div className=''>
+				<Routes>
+					<Route path="/" element={examples.Simple} />
+					{Object.entries(examples).map(entry => <Route key={entry[0]} path={`/${entry[0].replace(' ', '_')}`} element={entry[1]}/>)}
+				</Routes>
+			</div>
+		</div>
+	);
+}
+
+export default App;

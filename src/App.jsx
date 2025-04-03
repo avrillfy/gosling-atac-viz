@@ -1,26 +1,33 @@
 import * as React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import WidgetEncodingBasic from './components/WidgetEncodingBasic';
 import WidgetEncoding from './components/WidgetEncoding';
 
-// The full list of examples
 const examples = {
-	'Widget (Encoding)': <WidgetEncoding/>
-}
+	'Linked View': <WidgetEncoding />,
+	'Basic View': <WidgetEncodingBasic />,
+};
 
 function App() {
+	const [activeTab, setActiveTab] = React.useState(Object.keys(examples)[0]);
+
 	return (
-		<div className='flex flex-row h-full w-full'>
-			<div className='flex-none border-r-[1px]'>
-				<div className='font-bold font-lg m-3'>Examples</div>
-				<ol className='list-decimal list-inside divide-y divide-solid'>
-					{Object.entries(examples).map(entry => <li className='p-3' key={entry[0]}><Link className='hover:underline' to={`/${entry[0].replace(' ', '_')}`}>{entry[0]}</Link></li>)}
-				</ol>
+		<div>
+			{/* Sidebar Tabs */}
+			<div style={{ flexDirection: 'row', flexGap: 20 }} >
+				{Object.keys(examples).map((key) => (
+					<button
+						style={{ marginRight: 10, color: key === activeTab ? 'blue' : undefined, borderColor: key === activeTab ? 'blue' : undefined, cursor: 'pointer' }}
+						key={key}
+						onClick={() => setActiveTab(key)}
+					>
+						{key}
+					</button>
+				))}
 			</div>
-			<div className=''>
-				<Routes>
-					<Route path="/" element={examples.Simple} />
-					{Object.entries(examples).map(entry => <Route key={entry[0]} path={`/${entry[0].replace(' ', '_')}`} element={entry[1]}/>)}
-				</Routes>
+
+			{/* Main Content */}
+			<div>
+				{examples[activeTab]}
 			</div>
 		</div>
 	);

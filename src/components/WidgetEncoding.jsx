@@ -9,7 +9,13 @@ const goslingSpec = (mark, layout, binSize) => {
     arrangement: 'vertical',
     // Only include centerRadius if the layout is circular
     style: {
-      select: { color: 'black', stroke: 'black', strokeWidth: 6, arrange: 'behind', opacity: 0.1 }
+      select: {
+        color: 'black',
+        stroke: 'black',
+        strokeWidth: 6,
+        arrange: 'behind',
+        opacity: 0.1,
+      },
     },
     views: [
       // Overview view with brushing
@@ -25,7 +31,7 @@ const goslingSpec = (mark, layout, binSize) => {
               type: 'csv',
               delimiter: ',',
               chromosomeField: 'seqnames',
-              genomicFields: ['start', 'end']
+              genomicFields: ['start', 'end'],
             },
             // basic encoding for the overview track
             x: { field: 'start', type: 'genomic' },
@@ -36,9 +42,14 @@ const goslingSpec = (mark, layout, binSize) => {
             tooltip: [
               { field: 'start', type: 'genomic', alt: 'Start Position' },
               { field: 'end', type: 'genomic', alt: 'End Position' },
-              { field: 'score', type: 'quantitative', alt: 'Peak Score', format: '.2' },
+              {
+                field: 'score',
+                type: 'quantitative',
+                alt: 'Peak Score',
+                format: '.2',
+              },
               { field: 'name', type: 'nominal', alt: 'Peak Name' },
-              { field: 'annotation', type: 'nominal', alt: 'Annotation' }
+              { field: 'annotation', type: 'nominal', alt: 'Annotation' },
             ],
             // add an overlay of your chosen mark and two brush marks for linking
             tracks: [
@@ -46,19 +57,19 @@ const goslingSpec = (mark, layout, binSize) => {
               {
                 mark: 'brush',
                 x: { linkingId: 'detail-1' },
-                color: { value: 'blue' }
+                color: { value: 'blue' },
               },
               {
                 mark: 'brush',
                 x: { linkingId: 'detail-2' },
-                color: { value: 'red' }
-              }
+                color: { value: 'red' },
+              },
             ],
             style: { outlineWidth: 0 },
             width: 500,
-            height: 100
-          }
-        ]
+            height: 100,
+          },
+        ],
       },
       // Detail views showing linked regions from the overview brushes
       {
@@ -74,14 +85,14 @@ const goslingSpec = (mark, layout, binSize) => {
                   type: 'csv',
                   delimiter: ',',
                   chromosomeField: 'seqnames',
-                  genomicFields: ['start', 'end']
+                  genomicFields: ['start', 'end'],
                 },
                 mark,
                 x: {
                   field: 'start',
                   type: 'genomic',
                   linkingId: 'detail-1',
-                  "domain": {"chromosome": "chr16"},
+                  domain: { chromosome: 'chr16' },
                 },
                 xe: { field: 'end', type: 'genomic' },
                 y: { field: 'score', type: 'quantitative' },
@@ -90,15 +101,20 @@ const goslingSpec = (mark, layout, binSize) => {
                 tooltip: [
                   { field: 'start', type: 'genomic', alt: 'Start Position' },
                   { field: 'end', type: 'genomic', alt: 'End Position' },
-                  { field: 'score', type: 'quantitative', alt: 'Peak Score', format: '.2' },
+                  {
+                    field: 'score',
+                    type: 'quantitative',
+                    alt: 'Peak Score',
+                    format: '.2',
+                  },
                   { field: 'name', type: 'nominal', alt: 'Peak Name' },
-                  { field: 'annotation', type: 'nominal', alt: 'Annotation' }
+                  { field: 'annotation', type: 'nominal', alt: 'Annotation' },
                 ],
                 width: 245,
                 height: 150,
-                "style": {"background": "blue"},
-              }
-            ]
+                style: { background: 'blue' },
+              },
+            ],
           },
           {
             layout: 'linear',
@@ -109,14 +125,14 @@ const goslingSpec = (mark, layout, binSize) => {
                   type: 'csv',
                   delimiter: ',',
                   chromosomeField: 'seqnames',
-                  genomicFields: ['start', 'end']
+                  genomicFields: ['start', 'end'],
                 },
                 mark,
                 x: {
                   field: 'start',
                   type: 'genomic',
                   linkingId: 'detail-2',
-                  "domain": {"chromosome": "chrX"},
+                  domain: { chromosome: 'chrX' },
                 },
                 xe: { field: 'end', type: 'genomic' },
                 y: { field: 'score', type: 'quantitative' },
@@ -125,20 +141,25 @@ const goslingSpec = (mark, layout, binSize) => {
                 tooltip: [
                   { field: 'start', type: 'genomic', alt: 'Start Position' },
                   { field: 'end', type: 'genomic', alt: 'End Position' },
-                  { field: 'score', type: 'quantitative', alt: 'Peak Score', format: '.2' },
+                  {
+                    field: 'score',
+                    type: 'quantitative',
+                    alt: 'Peak Score',
+                    format: '.2',
+                  },
                   { field: 'name', type: 'nominal', alt: 'Peak Name' },
-                  { field: 'annotation', type: 'nominal', alt: 'Annotation' }
+                  { field: 'annotation', type: 'nominal', alt: 'Annotation' },
                 ],
                 width: 245,
                 height: 150,
-                "style": {"background": "red"},
-              }
-            ]
-          }
+                style: { background: 'red' },
+              },
+            ],
+          },
         ],
-        style: { backgroundOpacity: 0.1 }
-      }
-    ]
+        style: { backgroundOpacity: 0.1 },
+      },
+    ],
   };
 };
 
@@ -150,45 +171,60 @@ function WidgetEncoding() {
   const [binSize, setBinSize] = useState(8);
 
   return (
-    <>
-      <div style={{ margin: '30px 80px 0 80px' }}>
-        <label>
-          {'Bin Size: '}
-          <input
-            type="range"
-            min={0}
-            max={32}
-            step={4}
-            value={binSize}
-            style={{ width: 100, margin: '0 10px' }}
-            onChange={(e) => setBinSize(+e.currentTarget.value)}
-          />
-          {binSize === 0 ? 1 : binSize}
-        </label>
+    <div style={{ margin: '0 auto' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', gap: 50 }}>
+        <div>
+          <label>
+            {'Bin Size: '}
+            <input
+              type="range"
+              min={0}
+              max={32}
+              step={4}
+              value={binSize}
+              style={{ width: 100, margin: '0 10px' }}
+              onChange={(e) => setBinSize(+e.currentTarget.value)}
+            />
+            {binSize === 0 ? 1 : binSize}
+          </label>
+        </div>
+        <div>
+          <label>
+            {'Mark: '}
+            <select
+              onChange={(e) => setMark(e.currentTarget.value)}
+              value={mark}
+            >
+              {MARK_OPTIONS.map((d) => (
+                <option key={d} value={d}>
+                  {d}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <div>
+          <label>
+            {'Layout: '}
+            <select
+              onChange={(e) => setLayout(e.currentTarget.value)}
+              value={layout}
+            >
+              {LAYOUT_OPTIONS.map((d) => (
+                <option key={d} value={d}>
+                  {d}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
       </div>
-      <div style={{ margin: '30px 80px 0 80px' }}>
-        <label>
-          {'Mark: '}
-          <select onChange={(e) => setMark(e.currentTarget.value)} value={mark}>
-            {MARK_OPTIONS.map(d => <option key={d} value={d}>{d}</option>)}
-          </select>
-        </label>
-      </div>
-      <div style={{ margin: '30px 80px 0 80px' }}>
-        <label>
-          {'Layout: '}
-          <select onChange={(e) => setLayout(e.currentTarget.value)} value={layout}>
-            {LAYOUT_OPTIONS.map(d => <option key={d} value={d}>{d}</option>)}
-          </select>
-        </label>
-      </div>
-
       <GoslingComponent
         ref={gosRef}
         spec={goslingSpec(mark, layout, binSize)}
         experimental={{ reactive: true }}
       />
-    </>
+    </div>
   );
 }
 

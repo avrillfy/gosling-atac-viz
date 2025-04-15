@@ -21,7 +21,7 @@ const goslingSpec = (mark, layout, binSize) => {
           {
             alignment: 'overlay',
             data: {
-              url: 'https://raw.githubusercontent.com/avrillfy/gosling-atac-viz/refs/heads/main/public/data/ACC_peakCalls.csv',
+              url: 'https://raw.githubusercontent.com/avrillfy/gosling-atac-viz/refs/heads/main/public/data/5_cancer_peaks.csv',
               type: 'csv',
               delimiter: ',',
               chromosomeField: 'seqnames',
@@ -70,7 +70,7 @@ const goslingSpec = (mark, layout, binSize) => {
             tracks: [
               {
                 data: {
-                  url: 'https://raw.githubusercontent.com/avrillfy/gosling-atac-viz/refs/heads/main/public/data/ACC_peakCalls.csv',
+                  url: 'https://raw.githubusercontent.com/avrillfy/gosling-atac-viz/refs/heads/main/public/data/5_cancer_peaks.csv',
                   type: 'csv',
                   delimiter: ',',
                   chromosomeField: 'seqnames',
@@ -105,7 +105,7 @@ const goslingSpec = (mark, layout, binSize) => {
             tracks: [
               {
                 data: {
-                  url: 'https://raw.githubusercontent.com/avrillfy/gosling-atac-viz/refs/heads/main/public/data/ACC_peakCalls.csv',
+                  url: 'https://raw.githubusercontent.com/avrillfy/gosling-atac-viz/refs/heads/main/public/data/5_cancer_peaks.csv',
                   type: 'csv',
                   delimiter: ',',
                   chromosomeField: 'seqnames',
